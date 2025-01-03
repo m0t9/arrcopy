@@ -1,3 +1,3 @@
 # goperflint
 
-Linter with micro-optimizations making code faster without spoiling the quality of the code itself.
+Linters with micro-optimizations making code faster without spoiling the quality of the code itself.
