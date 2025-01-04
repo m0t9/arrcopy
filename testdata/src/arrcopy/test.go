@@ -1,4 +1,4 @@
-package testdata
+package arrcopy
 
 func iterateOverCopy() {
 	arr := [228228]struct {
@@ -11,14 +11,6 @@ func iterateOverCopy() {
 		_ = idx
 		_ = item
 	}
-}
-
-func iterateOverPtr() {
-	arr := [228228]struct {
-		s string
-		v int64
-		a [123]int64
-	}{}
 
 	for idx, item := range &arr {
 		_ = idx

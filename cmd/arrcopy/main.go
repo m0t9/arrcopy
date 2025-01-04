@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/m0t9/goperflint/internal/arrcopy"
+	"github.com/m0t9/goperflint/pkg/arrcopy"
 	"golang.org/x/tools/go/analysis/singlechecker"
 )
 
