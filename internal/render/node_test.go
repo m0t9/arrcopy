@@ -17,7 +17,7 @@ func TestNode_ValidExpression(t *testing.T) {
 	}
 
 	result := render.Node(fset, expr)
-	expected := "42" // The expected output for a basic literal
+	expected := "42"
 
 	if result != expected {
 		t.Errorf("expected %q, got %q", expected, result)
