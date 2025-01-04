@@ -45,4 +45,9 @@ func iterateOverCopy() {
 		_ = idx
 		_ = item
 	}
+
+	for idx, item := range [1]int{1} { // want `for-range loop over array '\[1\]int\{1\}' found\. Use for-range over '&\[1\]int\{1\}' instead`
+		_ = idx
+		_ = item
+	}
 }
