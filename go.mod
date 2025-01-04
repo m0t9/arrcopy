@@ -1,4 +1,4 @@
-module github.com/m0t9/goperflint
+module github.com/m0t9/arrcopy
 
 go 1.22.2
 
