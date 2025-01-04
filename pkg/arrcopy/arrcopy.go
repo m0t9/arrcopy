@@ -2,12 +2,15 @@
 package arrcopy
 
 import (
+	"fmt"
 	"go/ast"
 	"go/types"
 
 	"golang.org/x/tools/go/analysis"
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
+
+	"github.com/m0t9/goperflint/internal/render"
 )
 
 // NewAnalyzer returns analyzer instance for arrcopy linter.
@@ -27,10 +30,32 @@ func run(pass *analysis.Pass) (any, error) {
 	inspector.Preorder(filter, func(n ast.Node) {
 		rng := n.(*ast.RangeStmt)
 		vt := pass.TypesInfo.TypeOf(rng.X)
+
+		// Optimization is not applicable to call and cast expressions.
+		switch rng.X.(type) {
+		case *ast.CallExpr, *ast.TypeAssertExpr:
+			return
+		}
+
 		if _, isArray := vt.(*types.Array); isArray {
-			pass.Reportf(rng.Pos(),
-				`for-range loop over array '%s' found. Use for-range over '&%s' instead`,
-				rng.X, rng.X)
+			arr := render.Node(pass.Fset, rng.X)
+			pass.Report(analysis.Diagnostic{
+				Message: fmt.Sprintf(`for-range loop over array '%s' found. Use for-range over '&%s' instead`,
+					arr, arr),
+				Pos: rng.Pos(),
+				SuggestedFixes: []analysis.SuggestedFix{
+					{
+						Message: fmt.Sprintf(`replace '%s' with '&%s'`, arr, arr),
+						TextEdits: []analysis.TextEdit{
+							{
+								Pos:     rng.X.Pos(),
+								End:     rng.X.End(),
+								NewText: []byte(fmt.Sprintf(`&%s`, arr)),
+							},
+						},
+					},
+				},
+			})
 		}
 	})
 	return nil, nil
