@@ -5,7 +5,7 @@ import (
 	"go/token"
 	"testing"
 
-	"github.com/m0t9/goperflint/internal/render"
+	"github.com/m0t9/arrcopy/internal/render"
 )
 
 func TestNode_ValidExpression(t *testing.T) {

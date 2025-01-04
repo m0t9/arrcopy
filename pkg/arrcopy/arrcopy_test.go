@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/m0t9/goperflint/pkg/arrcopy"
+	"github.com/m0t9/arrcopy/pkg/arrcopy"
 	"golang.org/x/tools/go/analysis/analysistest"
 )
 

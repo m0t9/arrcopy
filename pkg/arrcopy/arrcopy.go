@@ -10,7 +10,7 @@ import (
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
 
-	"github.com/m0t9/goperflint/internal/render"
+	"github.com/m0t9/arrcopy/internal/render"
 )
 
 // NewAnalyzer returns analyzer instance for arrcopy linter.
