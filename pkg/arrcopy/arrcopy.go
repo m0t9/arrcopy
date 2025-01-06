@@ -29,6 +29,12 @@ func run(pass *analysis.Pass) (any, error) {
 
 	inspector.Preorder(filter, func(n ast.Node) {
 		rng := n.(*ast.RangeStmt)
+
+		// Optimization is not needed for loops ignoring array's items (value).
+		if id, ok := rng.Value.(*ast.Ident); rng.Value == nil || (ok && id.Name == "_") {
+			return
+		}
+
 		vt := pass.TypesInfo.TypeOf(rng.X)
 
 		// Optimization is not applicable to call and cast expressions.
@@ -58,5 +64,6 @@ func run(pass *analysis.Pass) (any, error) {
 			})
 		}
 	})
+
 	return nil, nil
 }

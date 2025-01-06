@@ -50,4 +50,13 @@ func iterateOverCopy() {
 		_ = idx
 		_ = item
 	}
+
+	// Ignore cases without array's items usage.
+	for idx := range [1]int{1} {
+		_ = idx
+	}
+
+	for idx, _ := range [1]int{1} {
+		_ = idx
+	}
 }
